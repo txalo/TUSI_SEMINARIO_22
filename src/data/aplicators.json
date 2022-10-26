@@ -1,0 +1,20 @@
+[
+  {
+    "id": "30-12345223-9",
+    "name": "Centro de Salud N1 - Mar del Plata",
+    "keypair":{
+      "secret": "SATGLVMT62AODTFWG32Q5D5GX2QFXD3WW3XGLLRSVUJRNRNFEMOXEK5S",
+      "public": "AVERIGUAR"
+    },
+    "funded": true    
+  },
+  {
+    "id": "30-22222222-9",
+    "name": "Zona Sanitaria Octava - Mar del Plata",
+    "keypair": {
+      "secret": "SC5O7BEOIZDHJ7ZRGSXCIFDYVSHPALXUZ5VUFNVP6U4SUPFH2WCHZWXU",
+      "public": "GA6W2RAWZSR5DLKXPYJRIEO4S57NLGWLGI4OFJBFCXNOOOKYPWXYTKTG"
+    },
+    "funded": true
+  }
+]

@@ -1,0 +1,95 @@
+[
+  { "id": "BCG", "name": "BCG", "diseases": ["tubercolosis"] },
+  { "id": "HEPB", "name": "Hepatitis B", "diseases": ["Hepatitis B"] },
+  {
+    "id": "VCN13",
+    "name": "Vacuna Conjugada de 13 Serotipos",
+    "diseases": ["meningitis", "neumonia", "sepsis por neumococo"]
+  },
+  {
+    "id": "VPN23",
+    "name": "Vacuna Polisácaridas contra Neumococo de 23 Serotipos",
+    "diseases": ["meningitis", "neumonia", "sepsis por neumococo"]
+  },
+  {
+    "id": "PENTA",
+    "name": "Quintuple o Pentavalente",
+    "diseases": [
+      "difteria",
+      "tétanos",
+      "tos convulsa",
+      "hepatitis b",
+      "influenza tipo b"
+    ]
+  },
+  { "id": "IPV", "name": "Polio o Salk", "diseases": ["poliomielitis"] },
+  { "id": "ROTA", "name": "Rotavirus", "diseases": ["rotavirus"] },
+  {
+    "id": "ACYW",
+    "name": "Meningococo ACYW",
+    "diseases": ["meningitis"]
+  },
+  {
+    "id": "ANTIGRIP",
+    "name": "Gripe o Influenza",
+    "diseases": ["Gripe"]
+  },
+  { "id": "HEPA", "name": "Hepatitis A", "diseases": ["hepatitis a"] },
+  {
+    "id": "DOBVIR",
+    "name": "Triple Viral",
+    "diseases": ["sarampión", "rubéola"]
+  },
+  {
+    "id": "TRIPVIR",
+    "name": "Triple Viral",
+    "diseases": ["sarampión", "rubéola", "paperas"]
+  },
+  { "id": "VARIC", "name": "Varicela", "diseases": ["varicela"] },
+  {
+    "id": "DTP",
+    "name": "Triple Bacteriana Celular",
+    "diseases": ["difteria", "tétanos", "tos convulsa"]
+  },
+  {
+    "id": "DTPA",
+    "name": "Triple Bacteriana Acelular",
+    "diseases": ["difteria", "tétanos", "tos convulsa"]
+  },
+  {
+    "id": "VPH",
+    "name": "Virus Papiloma Humano",
+    "diseases": ["virus del papiloma humano"]
+  },
+  {
+    "id": "DOBAC",
+    "name": "Doble Bacteriana",
+    "diseases": ["difteria", "tétanos"]
+  },
+  {
+    "id": "FIAMA",
+    "name": "Fiebre Amarilla",
+    "diseases": ["fiebre amarilla"]
+  },
+  {
+    "id": "FIHEMAR",
+    "name": "Fiebre Hemorrágica Argentina",
+    "diseases": ["fiebre hemorrágica Argentina"]
+  },
+  {
+    "id": "SPUTNIKV",
+    "name": "Sputnik V Componente 1",
+    "diseases": ["COVID-19"]
+  },
+  {
+    "id": "SPUTNIKV2",
+    "name": "Sputnik V Componente 2",
+    "diseases": ["COVID-19"]
+  },
+  { "id": "COVISHIELD", "name": "Covhishield", "diseases": ["COVID-19"] },
+  { "id": "SINOPHARM", "name": "Sinopharm", "diseases": ["COVID-19"] },
+  { "id": "ASTRAZEN", "name": "AstraZeneca", "diseases": ["COVID-19"] },
+  { "id": "MODERNA", "name": "Moderna", "diseases": ["COVID-19"] },
+  { "id": "CONVIDECIA", "name": "Convidecia", "diseases": ["COVID-19"] },
+  { "id": "PFIZERCOV", "name": "Comirnaty", "diseases": ["COVID-19"] }
+]
