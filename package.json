@@ -1,0 +1,25 @@
+{
+  "name": "tusi_22_vac",
+  "version": "1.0.0",
+  "description": "Proyecto Seminario 2022 - TUSI UTN MDP",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/txalo/TUSI_SEMINARIO_22.git"
+  },
+  "author": "Gonzalo Cabrera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/txalo/TUSI_SEMINARIO_22/issues"
+  },
+  "homepage": "https://github.com/txalo/TUSI_SEMINARIO_22#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "node-fetch": "^3.2.10",
+    "stellar-sdk": "^10.4.0"
+  }
+}
