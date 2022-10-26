@@ -2,9 +2,11 @@
   "name": "tusi_22_vac",
   "version": "1.0.0",
   "description": "Proyecto Seminario 2022 - TUSI UTN MDP",
-  "main": "index.js",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index"
   },
   "repository": {
     "type": "git",
