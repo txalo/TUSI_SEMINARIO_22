@@ -5,6 +5,11 @@ dotenv.config({path:'./src/.env'})
 
 const vac = express()
 
+vac.use(express.json())
+vac.use(expres.urlencoded({extended: true}))
+
+
+
 vac.get('/', (req, res) => res.send("Working!"))
 
 vac.listen(process.env.PORT, () => console.log( `Listen at port ${process.env.PORT}` ))
