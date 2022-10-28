@@ -22,5 +22,9 @@ export default class Entity{
     return this.keypair.secret
   }
 
+  getName(){
+    return this.name
+  }
+
   
 }

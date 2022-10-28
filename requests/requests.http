@@ -1,1 +1,10 @@
 #### ISSUER REQUESTS
+
+POST http://localhost:8080/issuer/doses/assign HTTP/1.1
+content-type: application/json
+
+{
+    "vaccine": "BCG",
+    "quantity": "200",
+    "destinyEntityID" : "30-22222222-9"
+}
