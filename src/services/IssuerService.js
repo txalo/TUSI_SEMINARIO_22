@@ -19,25 +19,42 @@ export default class IssuerService{
 
   async assignDoses (destinyEntityID, vaccine, doses){
     const destinyEntity = this.daoService.getDistributorByID(destinyEntityID)
-    const result = await this.blockchainService.issueAssets(this.issuer.getSecretKey(),destinyEntity.getSecretKey(),vaccine,doses)
-    
-    if (result.successful)
-      return JSON.stringify({status: 200, data: {destinyEntityID, name: destinyEntity.name, vaccine, quantity : doses }})      
-    else
-      return JSON.stringify(
-        {
-          status: result.response.status, 
-          error: {
-            title: result.response.data.title,
-            transaction: {
-              type: "Doses assign",
-              destinyEntityID, 
-              name: destinyEntity.name, 
-              vaccine, 
-              quantity : doses 
+    if (destinyEntity){
+
+      const result = await this.blockchainService.issueAssets(this.issuer.getSecretKey(),destinyEntity.getSecretKey(),vaccine,doses)
+      
+      if (result.successful)
+        return JSON.stringify({status: 200, data: {destinyEntityID, name: destinyEntity.name, vaccine, quantity : doses }})      
+      else
+        return JSON.stringify(
+          {
+            status: result.response.status, 
+            error: {
+              title: result.response.data.title,
+              transaction: {
+                type: "Doses assign",
+                destinyEntityID, 
+                name: destinyEntity.name, 
+                vaccine, 
+                quantity : doses 
+              }
             }
           }
-        })
+        )
+    }else
+    return JSON.stringify(
+      {
+        status: 404, 
+        error: {
+          title: "Destiny entity not found",
+          transaction: {
+            type: "Doses assign",
+            destinyEntityID,             
+            vaccine, 
+            quantity : doses 
+          }
+        }
+      })
     
   }
 }
