@@ -19,6 +19,7 @@ export default class IssuerService{
 
   async assignDoses (destinyEntityID, vaccine, doses){
     const destinyEntity = this.daoService.getDistributorByID(destinyEntityID)
+
     if (destinyEntity){
 
       const result = await this.blockchainService.issueAssets(this.issuer.getSecretKey(),destinyEntity.getSecretKey(),vaccine,doses)
@@ -55,6 +56,5 @@ export default class IssuerService{
           }
         }
       })
-    
   }
 }
