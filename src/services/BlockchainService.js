@@ -32,13 +32,12 @@ export default class BlockchainService{
 
     tx.sign(issuerKeypair)
     tx.sign(destinyKeypair)
+    
 
     try{
       const txResult = await this.server.submitTransaction(tx)
-      console.log(tx)
-      return txResult.successful
+      return txResult
     }catch(error){
-      console.error("Error: ", error)
       return error
     }
   }

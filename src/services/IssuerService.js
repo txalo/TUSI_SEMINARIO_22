@@ -19,7 +19,25 @@ export default class IssuerService{
 
   async assignDoses (destinyEntityID, vaccine, doses){
     const destinyEntity = this.daoService.getDistributorByID(destinyEntityID)
-    if (await this.blockchainService.issueAssets(this.issuer.getSecretKey(),destinyEntity.getSecretKey(),vaccine,doses) == true)
-      return JSON.stringify({status: 200, data: {destinyEntityID, name: destinyEntity.name, vaccine, quantity : doses }})
+    const result = await this.blockchainService.issueAssets(this.issuer.getSecretKey(),destinyEntity.getSecretKey(),vaccine,doses)
+    
+    if (result.successful)
+      return JSON.stringify({status: 200, data: {destinyEntityID, name: destinyEntity.name, vaccine, quantity : doses }})      
+    else
+      return JSON.stringify(
+        {
+          status: result.response.status, 
+          error: {
+            title: result.response.data.title,
+            transaction: {
+              type: "Doses assign",
+              destinyEntityID, 
+              name: destinyEntity.name, 
+              vaccine, 
+              quantity : doses 
+            }
+          }
+        })
+    
   }
 }
