@@ -27,7 +27,7 @@ export default class ApplicatorService{
       }else{
         return JSON.stringify(
           {
-            status: 400,
+            status: result.status,
             error : {
               status : "400 Forbidden",
               code : "NOT_ENOUGH_DOSES",

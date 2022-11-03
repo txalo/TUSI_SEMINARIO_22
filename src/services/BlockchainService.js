@@ -92,7 +92,7 @@ export default class BlockchainService{
       const txResult = await this.server.submitTransaction(tx)
       return txResult
     }catch(error){
-      console.error(error.response.data)
+      return error.response.data
     }
     
   }
