@@ -8,3 +8,14 @@ content-type: application/json
     "quantity": "200",
     "destinyEntityID" : "30-22222222-9"
 }
+
+#### APPLICATOR REQUESTS
+POST http://localhost:8080/applicators/doses/request HTTP/1.1
+content-type: application/json
+
+{
+    "id" : "30-2222000-9",
+    "distributorID" : "30-22222222-9",
+    "vaccine": "BCG",
+    "quantity": "200"
+}

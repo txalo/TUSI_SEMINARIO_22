@@ -27,7 +27,7 @@ export default class DAOService{
   }
 
   getAplicatorByID(id){
-    const result = this.readData('aplicators').filter(aplicator => aplicator.id == id)    
+    const result = this.readData('applicators').filter(aplicator => aplicator.id == id)    
     return result.length == 0 ? null : new Entity(result[0].id, result[0].name, result[0].keypair)    
   }
 

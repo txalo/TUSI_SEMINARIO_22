@@ -2,9 +2,13 @@ import { Keypair, Asset, Server, TransactionBuilder, Operation, Account} from 's
 
 import fetch from 'node-fetch'
 
+import dotenv from 'dotenv'
+dotenv.config({path:'src/.env'})
+
 export default class BlockchainService{
   constructor(){
     this.server = new Server('https://horizon-testnet.stellar.org')
+    this.issuerKeypair = Keypair.fromSecret(process.env.ISSUER_SECRET)
   }
 
   createAccount(){
@@ -58,6 +62,40 @@ export default class BlockchainService{
     }
   }
 
+  async makePayment (sourceSecretKey, destinySecretKey, assetName, amount){
+    const sourceKeypair = Keypair.fromSecret(sourceSecretKey)
+    const destinyKeypair = Keypair.fromSecret(destinySecretKey)
+    
+    const asset = new Asset(assetName, this.issuerKeypair.publicKey())
+    const sourceAccount = await this.server.loadAccount(sourceKeypair.publicKey())
+
+    const tx = new TransactionBuilder(sourceAccount,{
+      fee: await this.server.fetchBaseFee(),
+      networkPassphrase: "Test SDF Network ; September 2015",
+    })
+    .addOperation(Operation.changeTrust({
+      source: destinyKeypair.publicKey(),
+      asset
+    }))
+    .addOperation(Operation.payment({
+      amount,
+      asset,
+      destination: destinyKeypair.publicKey()
+    }))
+    .setTimeout(10*60)
+    .build()
+
+    tx.sign(sourceKeypair)
+    tx.sign(destinyKeypair)
+
+    try{
+      const txResult = await this.server.submitTransaction(tx)
+      return txResult
+    }catch(error){
+      console.error(error.response.data)
+    }
+    
+  }
   async listPayments(publicKey){
     const _account = await this.server.loadAccount(publicKey)    
     return await _account.payments()
