@@ -3,12 +3,15 @@
 
 ## APLICAR
 
-### request
+### request applicators/doses/apply
 
-id -> CUIT
+applicatorID -> ID aplicador (futura API Key)
+receiverID -> CUIT del receptor
 vaccine -> Codigo alfanumerico que identifica la dosis a aplicar (ver listado VACUNAS)
+
 {
-  "id" : "xx-xxxxxxxx-x",
+  "applicatorID" : "xx-xxxxxxxx-x,
+  "receiverID" : "xx-xxxxxxxx-x",
   "vaccine" : "VAC_CODE"
 }
 
@@ -16,9 +19,57 @@ vaccine -> Codigo alfanumerico que identifica la dosis a aplicar (ver listado VA
 
 - CUIT EXISTENTE: Si el CUIT esta registrado, actualiza su lista de dosis y devuelve un status 200 OK
 - CUIT NUEVO: Si el CUIT no esta registrado, crea una cuenta y registra la dosis, devuelve un status 201 CREATED
-{
 
+{
+  status: "XXX"
+  data: {
+    status: "XXX xxxxx"
+    applicatorID,
+    receiverID,
+    vaccine,
+    appliedAt: "AAAA-MM-DD",
+  }
 }
+
+#### Errores:
+code -> Codigo del error
+title -> Titulo del error
+detail -> Descripcion del error
+type -> Tipo de la transaccion que fallo.
+
+- De entidad (creacion/guardado): 
+{
+  status: 400,
+  error: {
+    status: "400 Forbidden",
+    code: "",
+    title: "",
+    detail: "",
+    transaction: {
+      type: "",
+      receiverID,
+    },
+  },
+}
+
+- De aplicacion de dosis:
+{
+  status: 400,
+  error: {
+    status: "400 Forbidden",
+    code: "",
+    title: "",
+    detail: "",
+    transaction: {
+      type: "Dose apply",
+      applicatorID,
+      receiverID,
+      vaccine,
+    },
+  },
+}
+
+
 
 ## SOLICITAR
 
