@@ -25,6 +25,5 @@ export default class Entity{
   getName(){
     return this.name
   }
-
   
 }

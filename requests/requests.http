@@ -4,18 +4,31 @@ POST http://localhost:8080/issuer/doses/assign HTTP/1.1
 content-type: application/json
 
 {
-    "vaccine": "IPV",
+    "vaccine": "HEPB",
     "quantity": "200",
     "destinyEntityID" : "30-22222222-9"
 }
 
 #### APPLICATOR REQUESTS
+
+####Request doses
 POST http://localhost:8080/applicators/doses/request HTTP/1.1
 content-type: application/json
 
 {
     "id" : "30-22220000-9",
     "distributorID" : "30-22222222-9",
-    "vaccine": "BCG",
+    "vaccine": "HEPB",
     "quantity": "200"
+}
+
+###Apply dose
+
+POST http://localhost:8080/applicators/doses/apply HTTP/1.1
+content-type: application/json
+
+{
+    "applicatorID": "30-22220000-9",
+    "receiverID" : "23-11119181-9",
+    "vaccine" : "HEPB"
 }
