@@ -1,15 +1,27 @@
 [
-  { "id": "BCG", "name": "BCG", "diseases": ["tubercolosis"] },
-  { "id": "HEPB", "name": "Hepatitis B", "diseases": ["Hepatitis B"] },
+  {
+    "id": "BCG",
+    "name": "BCG",
+    "diseases": ["tubercolosis"],
+    "doses": "1"
+  },
+  {
+    "id": "HEPB",
+    "name": "Hepatitis B",
+    "diseases": ["Hepatitis B"],
+    "doses": "3"
+  },
   {
     "id": "VCN13",
     "name": "Vacuna Conjugada de 13 Serotipos",
-    "diseases": ["meningitis", "neumonia", "sepsis por neumococo"]
+    "diseases": ["meningitis", "neumonia", "sepsis por neumococo"],
+    "doses": "1"
   },
   {
     "id": "VPN23",
     "name": "Vacuna Polisácaridas contra Neumococo de 23 Serotipos",
-    "diseases": ["meningitis", "neumonia", "sepsis por neumococo"]
+    "diseases": ["meningitis", "neumonia", "sepsis por neumococo"],
+    "doses": "3"
   },
   {
     "id": "PENTA",
@@ -20,76 +32,133 @@
       "tos convulsa",
       "hepatitis b",
       "influenza tipo b"
-    ]
+    ],
+    "doses": "4"
   },
-  { "id": "IPV", "name": "Polio o Salk", "diseases": ["poliomielitis"] },
-  { "id": "ROTA", "name": "Rotavirus", "diseases": ["rotavirus"] },
+  {
+    "id": "IPV",
+    "name": "Polio o Salk",
+    "diseases": ["poliomielitis"],
+    "doses": "4"
+  },
+  {
+    "id": "ROTA",
+    "name": "Rotavirus",
+    "diseases": ["rotavirus"],
+    "doses": "2"
+  },
   {
     "id": "ACYW",
     "name": "Meningococo ACYW",
-    "diseases": ["meningitis"]
+    "diseases": ["meningitis"],
+    "doses": "3"
   },
   {
     "id": "ANTIGRIP",
     "name": "Gripe o Influenza",
-    "diseases": ["Gripe"]
+    "diseases": ["Gripe"],
+    "doses": "100"
   },
-  { "id": "HEPA", "name": "Hepatitis A", "diseases": ["hepatitis a"] },
   {
-    "id": "DOBVIR",
-    "name": "Triple Viral",
-    "diseases": ["sarampión", "rubéola"]
+    "id": "HEPA",
+    "name": "Hepatitis A",
+    "diseases": ["hepatitis a"],
+    "doses": "1"
   },
   {
     "id": "TRIPVIR",
     "name": "Triple Viral",
-    "diseases": ["sarampión", "rubéola", "paperas"]
+    "diseases": ["sarampión", "rubéola", "paperas"],
+    "doses": "2"
   },
-  { "id": "VARIC", "name": "Varicela", "diseases": ["varicela"] },
+  {
+    "id": "VARIC",
+    "name": "Varicela",
+    "diseases": ["varicela"],
+    "doses": "2"
+  },
   {
     "id": "DTP",
     "name": "Triple Bacteriana Celular",
-    "diseases": ["difteria", "tétanos", "tos convulsa"]
+    "diseases": ["difteria", "tétanos", "tos convulsa"],
+    "doses": "1"
   },
   {
     "id": "DTPA",
     "name": "Triple Bacteriana Acelular",
-    "diseases": ["difteria", "tétanos", "tos convulsa"]
+    "diseases": ["difteria", "tétanos", "tos convulsa"],
+    "doses": "100"
   },
   {
     "id": "VPH",
     "name": "Virus Papiloma Humano",
-    "diseases": ["virus del papiloma humano"]
+    "diseases": ["virus del papiloma humano"],
+    "doses": "2"
   },
   {
     "id": "DOBAC",
     "name": "Doble Bacteriana",
-    "diseases": ["difteria", "tétanos"]
+    "diseases": ["difteria", "tétanos"],
+    "doses": "10"
   },
   {
     "id": "FIAMA",
     "name": "Fiebre Amarilla",
-    "diseases": ["fiebre amarilla"]
+    "diseases": ["fiebre amarilla"],
+    "doses": "2"
   },
   {
     "id": "FIHEMAR",
     "name": "Fiebre Hemorrágica Argentina",
-    "diseases": ["fiebre hemorrágica Argentina"]
+    "diseases": ["fiebre hemorrágica Argentina"],
+    "doses": "1"
   },
   {
     "id": "SPUTNIKV",
     "name": "Sputnik V Componente 1",
-    "diseases": ["COVID-19"]
+    "diseases": ["COVID-19"],
+    "doses": "4"
   },
   {
     "id": "SPUTNIKV2",
     "name": "Sputnik V Componente 2",
-    "diseases": ["COVID-19"]
+    "diseases": ["COVID-19"],
+    "doses": "4"
   },
-  { "id": "COVISHIELD", "name": "Covhishield", "diseases": ["COVID-19"] },
-  { "id": "SINOPHARM", "name": "Sinopharm", "diseases": ["COVID-19"] },
-  { "id": "ASTRAZEN", "name": "AstraZeneca", "diseases": ["COVID-19"] },
-  { "id": "MODERNA", "name": "Moderna", "diseases": ["COVID-19"] },
-  { "id": "CONVIDECIA", "name": "Convidecia", "diseases": ["COVID-19"] },
-  { "id": "PFIZERCOV", "name": "Comirnaty", "diseases": ["COVID-19"] }
+  {
+    "id": "COVISHIELD",
+    "name": "Covhishield",
+    "diseases": ["COVID-19"],
+    "doses": "4"
+  },
+  {
+    "id": "SINOPHARM",
+    "name": "Sinopharm",
+    "diseases": ["COVID-19"],
+    "doses": "4"
+  },
+  {
+    "id": "ASTRAZEN",
+    "name": "AstraZeneca",
+    "diseases": ["COVID-19"],
+    "doses": "4"
+  },
+  {
+    "id": "MODERNA",
+    "name": "Moderna",
+    "diseases": ["COVID-19"],
+    "doses": "4"
+  },
+  {
+    "id": "CONVIDECIA",
+    "name": "Convidecia",
+    "diseases": ["COVID-19"],
+    "doses": "4"
+  },
+  {
+    "id": "PFIZERCOV",
+    "name": "Comirnaty",
+    "diseases": ["COVID-19"],
+    "doses": "4"
+  }
 ]
