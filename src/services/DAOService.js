@@ -15,9 +15,10 @@ export default class DAOService{
     entities.push(entity)
     try {
       fs.writeFileSync(process.cwd()+'/src/data/'+entityType+'.json', JSON.stringify(entities))
-      console.log('Entities saved.')
+      return true
     }catch (error){
       console.error (error)
+      return false
     }
   }
 
@@ -32,8 +33,13 @@ export default class DAOService{
   }
 
   getReceiverByID(id){
-    const result = this.readData('citizens').filter(citizen => citizen.id == id)    
+    const result = this.readData('receivers').filter(receiver => receiver.id == id)    
     return result.length == 0 ? null : new Entity(result[0].id, result[0].name, result[0].keypair)    
+  }
+  
+  getVaccineDataByID(id){
+    const result = this.readData('vaccines').filter(receiver => receiver.id == id)    
+    return result.length == 0 ? null : result[0]    
   }
 
 }
