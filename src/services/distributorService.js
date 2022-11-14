@@ -13,17 +13,17 @@ export default class DistributorService{
     const distributor = this.daoService.getDistributorByID(distributorID)
     if(distributor){
       const result = await this.blockchainService.listAssets(distributor.getPublicKey())
-      const response = []
+      const doses = []
       result.forEach( res => {
         if (res.asset_type != "native")
-        response.push({id: res.asset_code, quantity: Number(res.balance).toFixed(0)})
+          doses.push({id: res.asset_code, quantity: Number(res.balance).toFixed(0)})
       })   
       return {
         status: 200, 
         data: {
           distributorID,
           name : distributor.name, 
-          doses : response
+          doses
         }
       }    
     }else{
