@@ -121,12 +121,12 @@ export default class BlockchainService {
     }
   }
   async listPayments(publicKey) {
-    const _account = await this.server.loadAccount(publicKey);
-    return await _account.payments();
+    const account = await this.server.loadAccount(publicKey);
+    return await account.payments();
   }
 
   async listAssets(publicKey) {
-    const _account = await this.server.loadAccount(publicKey);
-    return await _account.balances;
+    const account = await this.server.loadAccount(publicKey);
+    return await account.balances;
   }
 }
