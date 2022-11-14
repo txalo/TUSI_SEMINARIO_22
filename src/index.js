@@ -6,6 +6,7 @@ dotenv.config({path:'./src/.env'})
 import issuerRouter from './routes/issuerRouter.js'
 import distributorRouter from './routes/distributorRouter.js'
 import applicatorRouter from './routes/applicatorRouter.js'
+import receiverRouter from './routes/receiverRouter.js'
 
 
 const vac = express()
@@ -19,6 +20,7 @@ vac.get('/', (req, res) => res.send("Working!"))
 vac.use(issuerRouter)
 vac.use(distributorRouter)
 vac.use(applicatorRouter)
+vac.use(receiverRouter)
 
 vac.listen(process.env.PORT, () => console.log( `Listen at port ${process.env.PORT}` ))
 
