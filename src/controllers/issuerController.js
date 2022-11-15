@@ -11,4 +11,10 @@ export default class IssuerController{
     res.status(result.status)
     res.json(result)       
   }
+
+  getAllVaccinesData(req, res){
+    const result = JSON.parse(this.issuerService.getAllVaccinesData())
+    res.status(result.status)
+    res.json(result)
+  }
 }
