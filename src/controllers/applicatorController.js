@@ -17,4 +17,9 @@ export default class ApplicatorController{
     const result = JSON.parse(await this.applicatorService.applyDoses(applicatorID, receiverID, vaccine))
     res.json(result)
   }
+
+  async getAll(req, res){
+    const result = JSON.parse(await this.applicatorService.getAll())
+    res.json(result)
+  }
 }

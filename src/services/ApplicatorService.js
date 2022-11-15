@@ -2,6 +2,8 @@ import blockchainService from "./BlockchainService.js";
 import DAOService from "./DAOService.js";
 import Entity from "../model/Entity.js";
 
+import fetch from "node-fetch";
+
 export default class ApplicatorService {
   constructor() {
     this.blockchainService = new blockchainService();
@@ -174,5 +176,20 @@ export default class ApplicatorService {
         },
       });
     }
+  }
+
+  getAll() {
+    const applicators = this.daoService.readData("applicators");
+    let result = {}
+    if (applicators.length != 0){
+      result.status = 200
+      result.data = []
+      applicators.forEach((applicator) => {
+        let {id, name } = applicator
+        result.data.push({id, name})
+      });
+        
+    }
+    return JSON.stringify(result);
   }
 }
