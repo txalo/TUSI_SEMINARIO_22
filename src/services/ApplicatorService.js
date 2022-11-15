@@ -178,18 +178,30 @@ export default class ApplicatorService {
     }
   }
 
-  getAll() {
+  async getAll() {
     const applicators = this.daoService.readData("applicators");
-    let result = {}
-    if (applicators.length != 0){
-      result.status = 200
-      result.data = []
-      applicators.forEach((applicator) => {
-        let {id, name } = applicator
-        result.data.push({id, name})
-      });
-        
+    let result = {};
+    if (applicators.length != 0) {
+      result.status = 200;
+      result.data = [];
+      for await (const applicator of applicators) {
+        let { id, name, keypair } = applicator;
+        let applicatorStock = await this.blockchainService.listAssets(
+          keypair.public
+        );
+        let doses = [];
+        applicatorStock.forEach((stock) => {
+          if (stock.asset_type != "native") {
+            doses.push({
+              vaccine: stock.asset_code,
+              quantity: Number(stock.balance).toFixed(0),
+            });
+          }
+        });
+        result.data.push({ id, name, doses });
+      }
     }
+    
     return JSON.stringify(result);
   }
 }
