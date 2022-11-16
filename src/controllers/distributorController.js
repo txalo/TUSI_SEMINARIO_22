@@ -13,4 +13,9 @@ export default class DistributorController{
     res.send(result)   
   }
 
+  async getAll(req, res){
+    const result = JSON.parse(await this.distributorService.getAll())
+    res.json(result)
+  }
+
 }

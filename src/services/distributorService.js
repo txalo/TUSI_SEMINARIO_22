@@ -38,4 +38,31 @@ export default class DistributorService{
       }    
     }
   }
+
+  async getAll() {
+    const distributors = this.daoService.readData("distributors");
+    let result = {};
+    if (distributors.length != 0) {
+      result.status = 200;
+      result.data = [];
+      for await (const distributor of distributors) {
+        let { id, name, keypair } = distributor;
+        let distributorStock = await this.blockchainService.listAssets(
+          keypair.public
+        );
+        let doses = [];
+        distributorStock.forEach((stock) => {
+          if (stock.asset_type != "native") {
+            doses.push({
+              vaccine: stock.asset_code,
+              quantity: Number(stock.balance).toFixed(0),
+            });
+          }
+        });
+        result.data.push({ id, name, doses });
+      }
+    }
+    
+    return JSON.stringify(result);
+  }
 }
