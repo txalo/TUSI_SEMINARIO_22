@@ -178,6 +178,36 @@ export default class ApplicatorService {
     }
   }
 
+  async listDoses(applicatorID){
+    const applicator = this.daoService.getAplicatorByID(applicatorID)
+    if(applicator){
+      const result = await this.blockchainService.listAssets(applicator.getPublicKey())
+      const doses = []
+      result.forEach( res => {
+        if (res.asset_type != "native")
+          doses.push({id: res.asset_code, quantity: Number(res.balance).toFixed(0)})
+      })   
+      return {
+        status: 200, 
+        data: {
+          applicatorID,
+          name : applicator.name, 
+          doses
+        }
+      }    
+    }else{
+      return {
+        status: 404, 
+        error: {
+          title: "Applicator not found",
+          data : {
+            applicatorID
+          }
+        }
+      }    
+    }
+  }
+
   async getAll() {
     const applicators = this.daoService.readData("applicators");
     let result = {};

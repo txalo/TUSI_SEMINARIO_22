@@ -18,6 +18,12 @@ export default class ApplicatorController{
     res.json(result)
   }
 
+  async listDoses(req, res){
+    const result = await this.applicatorService.listDoses(req.params.id)
+    res.status(result.status)
+    res.send(result)   
+  }
+
   async getAll(req, res){
     const result = JSON.parse(await this.applicatorService.getAll())
     res.json(result)
