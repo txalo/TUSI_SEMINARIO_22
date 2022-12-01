@@ -35,7 +35,6 @@ export default class ReceiverService {
       return JSON.stringify({
         status: "404",
         error: {
-          status: "404 NOT FOUND",
           code: "ENTITY_NOT_FOUND",
           title: "Entidad receptora no encontrada",
           detail: "La entidad receptora aun no posee registros en el sistema",

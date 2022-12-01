@@ -36,7 +36,6 @@ export default class ApplicatorService {
         return JSON.stringify({
           status: result.status,
           error: {
-            status: "400 Forbidden",
             code: "NOT_ENOUGH_DOSES",
             title: "Dosis insuficientes",
             detail:
@@ -58,7 +57,6 @@ export default class ApplicatorService {
       return JSON.stringify({
         status: 404,
         error: {
-          status: "404 Not found",
           code: "INVALID_ENTITY",
           title: "Entidad invalida",
           detail,
@@ -92,7 +90,6 @@ export default class ApplicatorService {
           return JSON.stringify({
             status: 400,
             error: {
-              status: "400 Forbidden",
               code: "CANT_SAVE_ENTITY",
               title: "Error guardado",
               detail: "La entidad receptora no pudo ser guardada correctamente",
@@ -107,7 +104,6 @@ export default class ApplicatorService {
         return JSON.stringify({
           status: 400,
           error: {
-            status: "400 Forbidden",
             code: "CANT_CREATE_ENTITY",
             title: "Creacion fallida",
             detail: "La entidad receptora no pudo ser creada correctamente",
@@ -132,7 +128,6 @@ export default class ApplicatorService {
       return JSON.stringify({
         status: isNew ? "201" : "200",
         data: {
-          status: isNew ? "201 Created" : "200 OK",
           applicatorID,
           receiverID,
           vaccine,
@@ -163,7 +158,6 @@ export default class ApplicatorService {
       return JSON.stringify({
         status: 403,
         error: {
-          status: "403 Forbidden",
           code: error.err_code,
           title: error.title,
           detail: error.detail,
