@@ -1,0 +1,1066 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "VAC - Vacunatorio Argentino Centralizado - SEMINARIO TUSI 2022",
+    "description": "Este documento tiene como propósito detallar el funcionamiento de la **API VAC** (*Vacunatorio Argentino Centralizado*) y está dirigido a los desarroladores que la implementen.\n\n\nEl sistema registrará la aplicación y distribución de dosis de vacunas a nivel Nacional/Provincial/Municipal. Altas y bajas de cantidad de dosis entregadas a distribuidores, vendedores y aplicadores. Registro de dosis aplicadas.\n\nUtiliza tecnologia Blockchain para manter un registro centralizado de las vacunas distribuidas y aplicadas, el cual podrán consultar todos los centros de salud y gubernamentales.",
+    "contact": {
+      "name": "Gonzalo Cabrera",
+      "email": "txalomdq@gmail.com",
+      "url": "https://github.com/txalo/TUSI_SEMINARIO_22"
+    },
+    "version": "1.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "tags": [
+    {
+      "name": "vaccines",
+      "description": "Información sobre vacunas"
+    },
+    {
+      "name": "issuer",
+      "description": "Endpoints de emisor"
+    },
+    {
+      "name": "distributor",
+      "description": "Endpoints de distribuidores"
+    },
+    {
+      "name": "applicator",
+      "description": "Endpoints de aplicadores"
+    },
+    {
+      "name": "receiver",
+      "description": "Endpoints de receptores"
+    }
+  ],
+  "paths": {
+    "/vaccines/list": {
+      "get": {
+        "tags": [
+          "vaccines"
+        ],
+        "summary": "Listado de vacunas",
+        "description": "Devuelve un listado con todas las vacunas de calendario",
+        "operationId": "getAllVaccindesData",
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vaccine"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Archivo no encontrado"
+          }
+        }
+      }
+    },
+    "/issuer/doses/assign": {
+      "post": {
+        "tags": [
+          "issuer"
+        ],
+        "summary": "Asignar dosis a un distribuidor",
+        "description": "Emite las dosis y luego las asigna al distribuidor que recibe en la request.",
+        "operationId": "assignDoses",
+        "requestBody": {
+          "description": "Asigna dosis a un distribuidor",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Assign"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Asignación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "Código respuesta",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "destinyEntityID": {
+                          "type": "string",
+                          "example": "30-22222222-9"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Nombre del distribuidor",
+                          "example": "Drogueria del Sud"
+                        },
+                        "vaccine": {
+                          "type": "string",
+                          "example": "BCG"
+                        },
+                        "quantity": {
+                          "type": "string",
+                          "example": 2000
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Asignación fallida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "description": "Código respuesta",
+                      "example": 400
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string",
+                          "description": "Titulo del error",
+                          "example": "Transaction failed"
+                        },
+                        "transaction": {
+                          "type": "object",
+                          "description": "Detalles de la transaccion fallida",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "Descripcion transacción",
+                              "example": "Doses assign"
+                            },
+                            "destinyEntityID": {
+                              "type": "string",
+                              "example": "30-22222222-9"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Nombre del distribuidor",
+                              "example": "Drogueria del Sud"
+                            },
+                            "vaccine": {
+                              "type": "string",
+                              "example": "BCG"
+                            },
+                            "quantity": {
+                              "type": "string",
+                              "example": 2000
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/distributor/{id}/doses/stock": {
+      "get": {
+        "tags": [
+          "distributor"
+        ],
+        "summary": "Devuelve stock de dosis del distribuidor",
+        "description": "Devuelve un arreglo con objetos indicando codigo vacuna y cantidad",
+        "operationId": "listDoses",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "CUIL/CUIT del distribuidor por el que se consulta",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "30-22222222-9"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Asignación exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "30-22222222-9"
+                        },
+                        "doses": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/DoseStock"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Distribuidor inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 404
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string",
+                          "example": "Distirbutor not found"
+                        },
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "distributorID": {
+                              "type": "string",
+                              "example": "30-22222222-9"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/distributor/list": {
+      "get": {
+        "tags": [
+          "distributor"
+        ],
+        "summary": "Lista de distribuidores.",
+        "description": "Devuelve una lista de todos los distribuidores",
+        "responses": {
+          "200": {
+            "description": "solicitud exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "array",
+                      "description": "Dosis que el distribuidor posee en su stock.",
+                      "items": {
+                        "$ref": "#/components/schemas/DistributorStock"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/applicators/doses/request": {
+      "post": {
+        "tags": [
+          "applicator"
+        ],
+        "summary": "Solicitud de dosis a distribuidor",
+        "description": "Aplicador solicita dosis a un distribuidor.",
+        "operationId": "requestDoses",
+        "requestBody": {
+          "description": "Solicita dosis a un distribuidor",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DosesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "solicitud exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 200
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/DosesRequestResponse"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "dosis insuficientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 400
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Codigo del error",
+                          "example": "NOT_ENOUGH_DOSES"
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": "Titulo del error",
+                          "example": "Dosis insuficientes"
+                        },
+                        "detail": {
+                          "type": "string",
+                          "description": "Detalle del error",
+                          "example": "El distribuidor no cuenta con la cantidad de dosis solicitadas"
+                        },
+                        "transaction": {
+                          "$ref": "#/components/schemas/DosesRequestTX"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "entidad invalida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 404
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Codigo del error",
+                          "example": "INVALID_ENTITY"
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": "Titulo del error",
+                          "example": "Entidad invalida"
+                        },
+                        "detail": {
+                          "type": "string",
+                          "description": "Detalle del error",
+                          "example": "Distribuidor no encontrado"
+                        },
+                        "transaction": {
+                          "$ref": "#/components/schemas/DosesRequestTX"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/applicators/doses/apply": {
+      "post": {
+        "tags": [
+          "applicator"
+        ],
+        "summary": "Aplicar dosis",
+        "description": "Registra la aplicacion de una dosis a un receptor",
+        "operationId": "doseApply",
+        "requestBody": {
+          "description": "Datos de aplicador, receptor y dosis a registrar",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DoseApply"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "aplicacion exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 200
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/DoseApplyOK"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "receptor creado / aplicacion exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 201
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/DoseApplyOK"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "error creacion/guardado entidad",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 400
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/EntityError"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "registro inoculacion fallido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 400
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/DoseApplyError"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/applicators/{id}/doses/stock": {
+      "get": {
+        "tags": [
+          "applicator"
+        ],
+        "summary": "Devuelve stock de dosis del aplicador",
+        "description": "Devuelve un arreglo con objetos indicando codigo vacuna y cantidad que posee el distribuidor en stock",
+        "operationId": "listDosesApplicator",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "CUIL/CUIT del aplicador por el que se consulta",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "30-22220000-9"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "respuesta exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "applicatorID": {
+                          "type": "string",
+                          "example": "30-22220000-9"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Zona Sanitaria VIII - Mar del Plata"
+                        },
+                        "doses": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/DoseStock"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/applicators/list/all": {
+      "get": {
+        "tags": [
+          "applicator"
+        ],
+        "summary": "Devuelve lista de aplicadores",
+        "description": "Lista todos los aplicadores y su stock de dosis disponibles",
+        "operationId": "listApplicators",
+        "responses": {
+          "200": {
+            "description": "respuesta exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ApplicatorStock"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/receiver/{receiverID}/doses/list": {
+      "get": {
+        "tags": [
+          "receiver"
+        ],
+        "summary": "Devuelve lista de dosis recibidas",
+        "description": "Lista de las dosis recibidas y fechas en las que fueron aplicadas",
+        "operationId": "receiverDoses",
+        "parameters": [
+          {
+            "name": "receiverID",
+            "in": "path",
+            "description": "CUIL del receptor por el que se consulta",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "23-22222222-9"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "respuesta exitosa",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "receiverID": {
+                          "type": "string",
+                          "description": "CUIL del receptor",
+                          "example": "23-22222222-9"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "description": "Fecha de creacion del registro",
+                          "example": "AAAA-MM-DD"
+                        },
+                        "doses": {
+                          "type": "array",
+                          "description": "Listado de dosis inoculadas al receptor",
+                          "items": {
+                            "$ref": "#/components/schemas/DoseApplied"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "entidad inexistente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": 404
+                    },
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "Codigo del error",
+                          "example": "ENTITY_NOT_FOUND"
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": "Titulo del error",
+                          "example": "Entidad receptora no encontrada"
+                        },
+                        "detail": {
+                          "type": "string",
+                          "description": "Descripcion del error",
+                          "example": "La entidad receptora aun no posee registros en el sistema"
+                        },
+                        "transaction": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "Tipo de la transaccion fallida",
+                              "example": "DOSES_LIST"
+                            },
+                            "receiverID": {
+                              "type": "string",
+                              "description": "CUIL del receptor",
+                              "example": "XX-XXXXXXXX-X"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Vaccine": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Codigo",
+            "example": "HEPB"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre de la vacuna",
+            "example": "Hepatitis B"
+          },
+          "diseases": {
+            "type": "array",
+            "description": "Enfermedades contra las cuales protege",
+            "items": {
+              "$ref": "#/components/schemas/Disease"
+            }
+          },
+          "doses": {
+            "type": "string",
+            "description": "Dosis recomendadas segun calendario",
+            "example": 3
+          }
+        }
+      },
+      "Disease": {
+        "type": "string",
+        "example": "Hepatitis B"
+      },
+      "Assign": {
+        "type": "object",
+        "properties": {
+          "destinyEntityID": {
+            "type": "string",
+            "description": "CUIL/CUIT del distribuidor",
+            "example": "30-22222222-9"
+          },
+          "vaccine": {
+            "type": "string",
+            "description": "Codigo de la vacuna",
+            "example": "HEPB"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "Cantidad de dosis a asignar",
+            "example": 2000
+          }
+        }
+      },
+      "DosesRequestResponse": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "description": "CUIL/CUIT del distribuidor",
+            "example": "30-22222222-9"
+          },
+          "to": {
+            "type": "string",
+            "description": "CUIL/CUIT del aplicador",
+            "example": "30-22220000-9"
+          },
+          "vaccine": {
+            "type": "string",
+            "description": "Codigo de la vacuna",
+            "example": "HEPB"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "Cantidad de dosis a asignar",
+            "example": 2000
+          }
+        }
+      },
+      "DistributorStock": {
+        "type": "object",
+        "properties": {
+          "distributorID": {
+            "type": "string",
+            "description": "CUIT/CUIL del distribuidor",
+            "example": "30-22222222-9"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre del distribuidor",
+            "example": "Drogueria del Sud"
+          },
+          "doses": {
+            "type": "array",
+            "description": "Dosis en stock para el distribuidor",
+            "items": {
+              "$ref": "#/components/schemas/DoseStock"
+            }
+          }
+        }
+      },
+      "ApplicatorStock": {
+        "type": "object",
+        "properties": {
+          "distributorID": {
+            "type": "string",
+            "description": "CUIT/CUIL del aplicador",
+            "example": "30-22220000-9"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre del aplicador",
+            "example": "Centro de salud N1 - Mar del Plata"
+          },
+          "doses": {
+            "type": "array",
+            "description": "Dosis en stock para el aplicador",
+            "items": {
+              "$ref": "#/components/schemas/DoseStock"
+            }
+          }
+        }
+      },
+      "DoseStock": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Codigo vacuna",
+            "example": "BCG"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "Cantidad de dosis en stock",
+            "example": 20000
+          }
+        }
+      },
+      "DosesRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "CUIL/CUIT del aplicador",
+            "example": "30-22220000-9"
+          },
+          "distributorID": {
+            "type": "string",
+            "description": "CUIL/CUIT del distribuidor",
+            "example": "30-22222222-9"
+          },
+          "vaccine": {
+            "type": "string",
+            "description": "Codigo de la vacuna",
+            "example": "HEPB"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "Cantidad de dosis a asignar",
+            "example": 2000
+          }
+        }
+      },
+      "DosesRequestTX": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "tipo de transaccion",
+            "example": "DOSES_REQUEST"
+          },
+          "id": {
+            "type": "string",
+            "description": "CUIL/CUIT del aplicador",
+            "example": "30-22220000-9"
+          },
+          "distributorID": {
+            "type": "string",
+            "description": "CUIL/CUIT del distribuidor",
+            "example": "30-22222222-9"
+          },
+          "vaccine": {
+            "type": "string",
+            "description": "Codigo de la vacuna",
+            "example": "HEPB"
+          },
+          "quantity": {
+            "type": "string",
+            "description": "Cantidad de dosis a asignar",
+            "example": 2000
+          }
+        }
+      },
+      "DoseApply": {
+        "type": "object",
+        "properties": {
+          "applicatorID": {
+            "type": "string",
+            "description": "CUIL/CUIT del aplicador",
+            "example": "30-22220000-9"
+          },
+          "receiverID": {
+            "type": "string",
+            "description": "CUIL del receptor",
+            "example": "30-22222222-9"
+          },
+          "vaccine": {
+            "type": "string",
+            "description": "Codigo de la vacuna",
+            "example": "HEPB"
+          }
+        }
+      },
+      "DoseApplyOK": {
+        "type": "object",
+        "properties": {
+          "applicatorID": {
+            "type": "string",
+            "description": "CUIL/CUIT del aplicador",
+            "example": "30-22220000-9"
+          },
+          "receiverID": {
+            "type": "string",
+            "description": "CUIL del receptor",
+            "example": "30-22222222-9"
+          },
+          "vaccine": {
+            "type": "string",
+            "description": "Codigo de la vacuna",
+            "example": "HEPB"
+          },
+          "appliedAt": {
+            "type": "string",
+            "description": "Fecha de la inoculacion",
+            "example": "AAAA-MM-DD"
+          }
+        }
+      },
+      "DoseApplied": {
+        "type": "object",
+        "properties": {
+          "vaccine": {
+            "type": "string",
+            "description": "Codigo de la vacuna",
+            "example": "HEPB"
+          },
+          "inoculatedAt": {
+            "type": "string",
+            "description": "Fecha de inoculacion",
+            "example": "AAAA-MM-DD"
+          }
+        }
+      },
+      "EntityError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Codigo del error",
+            "example": "CANT_SAVE_ENTITY"
+          },
+          "title": {
+            "type": "string",
+            "description": "Titulo del error",
+            "example": "Error guardado"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Descripcion del error",
+            "example": "La entidad receptora no pudo ser guardada correctamente"
+          },
+          "transaction": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Tipo de la transaccion fallida",
+                "example": "Receiver save"
+              },
+              "receiverID": {
+                "type": "string",
+                "description": "CUIL del receptor",
+                "example": "XX-XXXXXXXX-X"
+              }
+            }
+          }
+        }
+      },
+      "DoseApplyError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Codigo del error",
+            "example": "DOSE_EXCEED"
+          },
+          "title": {
+            "type": "string",
+            "description": "Titulo del error",
+            "example": "Esquema completo"
+          },
+          "detail": {
+            "type": "string",
+            "description": "Descripcion del error",
+            "example": "La entidad receptora ya posee esquema completo para esta vacuna"
+          },
+          "transaction": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Tipo de la transaccion fallida",
+                "example": "Dose apply"
+              },
+              "applicatorID": {
+                "type": "string",
+                "description": "CUIL/CUIT del aplicador",
+                "example": "XX-XXXXXXXX-X"
+              },
+              "receiverID": {
+                "type": "string",
+                "description": "CUIL del receptor",
+                "example": "XX-XXXXXXXX-X"
+              },
+              "vaccine": {
+                "type": "string",
+                "description": "Codigo de la vacuna",
+                "example": "BCG"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
