@@ -9,23 +9,26 @@ export default class ApplicatorController{
   async requestDoses(req, res){
     const {id, distributorID, vaccine, quantity } = req.body
     const result = JSON.parse(await this.applicatorService.requestDoses(id, distributorID, vaccine, quantity))
-    res.json(result)
+    res.status(Number(result.status))
+    res.send(result)
   }
 
   async applyDoses(req, res){
     const { applicatorID, receiverID, vaccine } = req.body
     const result = JSON.parse(await this.applicatorService.applyDoses(applicatorID, receiverID, vaccine))
-    res.json(result)
+    res.status(Number(result.status))
+    res.send(result)
   }
 
   async listDoses(req, res){
     const result = await this.applicatorService.listDoses(req.params.id)
-    res.status(result.status)
+    res.status(Number(result.status))
     res.send(result)   
   }
 
   async getAll(req, res){
     const result = JSON.parse(await this.applicatorService.getAll())
-    res.json(result)
+    res.status(Number(result.status))
+    res.send(result)
   }
 }

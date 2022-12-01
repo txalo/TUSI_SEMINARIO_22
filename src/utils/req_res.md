@@ -205,7 +205,6 @@ STATUS 201 CREATED
 ### response
 
 id -> CUIT del aplicador
-stockAt -> Dia y hora en la que fue consultado el stock.
 doses -> Array con objetos que indican cuantas dosis hay de cada vacuna.
 
 STATUS 200 Ok
@@ -213,7 +212,6 @@ STATUS 200 Ok
   "status" : "200 Ok",
   "data" : {
     "id" : "xx-xxxxxxxx-x",
-    "stockAt" : "YYYY-MM-DD hh:mm:ss",
     "doses" : [
       {
         "id" : "VAC_CODE",

@@ -5,7 +5,7 @@ content-type: application/json
 
 {
     "vaccine": "HEPB",
-    "quantity": "200",
+    "quantity": "2000",
     "destinyEntityID" : "30-22222222-9"
 }
 
@@ -19,7 +19,7 @@ content-type: application/json
     "id" : "30-22220000-9",
     "distributorID" : "30-22222222-9",
     "vaccine": "HEPB",
-    "quantity": "200"
+    "quantity": "20000"
 }
 
 ###Apply dose

@@ -9,13 +9,14 @@ export default class DistributorController{
 
   async listDoses(req, res){
     const result = await this.distributorService.listDoses(req.params.id)
-    res.status(result.status)
+    res.status(Number(result.status))
     res.send(result)   
   }
 
   async getAll(req, res){
     const result = JSON.parse(await this.distributorService.getAll())
-    res.json(result)
+    res.status(Number(result.status))
+    res.send(result)
   }
 
 }

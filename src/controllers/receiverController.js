@@ -7,6 +7,8 @@ export default class ControllerService {
 
   async listDoses (req, res){
     const { receiverID } = req.params
-    res.send(JSON.parse(await this.receiverService.listDoses(receiverID)))
+    const result = JSON.parse(await this.receiverService.listDoses(receiverID))
+    res.status(Number(result.status))
+    res.send(result)
   }
 }

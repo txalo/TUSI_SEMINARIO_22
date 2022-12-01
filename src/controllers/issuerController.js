@@ -8,13 +8,13 @@ export default class IssuerController{
   async assignDoses(req, res){
     const {vaccine, quantity, destinyEntityID} = req.body    
     const result = JSON.parse(await this.issuerService.assignDoses(destinyEntityID, vaccine, quantity))
-    res.status(result.status)
+    res.status(Number(result.status))
     res.json(result)       
   }
 
   getAllVaccinesData(req, res){
     const result = JSON.parse(this.issuerService.getAllVaccinesData())
-    res.status(result.status)
+    res.status(Number(result.status))
     res.json(result)
   }
 }

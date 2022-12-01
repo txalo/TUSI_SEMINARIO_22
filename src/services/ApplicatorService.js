@@ -32,6 +32,7 @@ export default class ApplicatorService {
           },
         });
       } else {
+        console.log(result.status)
         return JSON.stringify({
           status: result.status,
           error: {
@@ -111,7 +112,7 @@ export default class ApplicatorService {
             title: "Creacion fallida",
             detail: "La entidad receptora no pudo ser creada correctamente",
             transaction: {
-              type: "Entity creation failed",
+              type: "Receiver creation",
               receiverID,
             },
           },
@@ -151,8 +152,7 @@ export default class ApplicatorService {
           op_code: "op_src_no_trust",
           err_code: "NOT_ENOUGH_DOSES",
           title: "Dosis insuficientes",
-          detail:
-            "La entidad aplicadora no posee suficientes dosis de esta vacuna",
+          detail: "La entidad aplicadora no posee suficientes dosis de esta vacuna",
         },
       ];
       const error = resultCodes.filter(
@@ -161,9 +161,9 @@ export default class ApplicatorService {
       )[0];
 
       return JSON.stringify({
-        status: 400,
+        status: 403,
         error: {
-          status: "400 Forbidden",
+          status: "403 Forbidden",
           code: error.err_code,
           title: error.title,
           detail: error.detail,
