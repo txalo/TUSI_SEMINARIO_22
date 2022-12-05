@@ -1,12 +1,11 @@
 [
   {
-    "id": "23-26057124-9",
+    "id": "23-11111111-9",
     "name": "Gonzalo Cabrera",
     "keypair": {
       "secret": "SCFWX3I4JH53XVBW3NULR7LKM5HLH32JDDW7FLT3FX47C7RYLQ5YLRYC",
       "public": "GBNMXSFXRNFCJOJRNQAQSJXTJS72CV55DYILYV576QBUD2BPOSMI4RX3"
-    },
-    "funded": false
+    }    
   },
   {
     "id": "23-22222222-9",
@@ -14,8 +13,7 @@
     "keypair": {
       "secret": "SBSUAPE6INP5JKPGPYIBPM4FKSDH7MDF77A2JO75UPW36FVS6PWAPWSD",
       "public": "GCOPJA4YOYZJZ7A6U2QPI4BO4RHMG5PWR5Z7TYD77CATTVRCC7QXD3ME"
-    },
-    "funded": true
+    }    
   },
   {
     "id": "23-33333333-9",
@@ -23,7 +21,6 @@
     "keypair": {
       "secret": "SBR6Q76XZJEKEQDFD5ARKNWNM2F5OPM6SIQFXFIJ7GPIZS3G6OKSHRDM",
       "public": "GDBWCSHJOEPILXEUZH25YYYCYCNJV2LZXQG47OJFIPBWNC477MIGQFOP"
-    },
-    "funded": true
+    }    
   }  
 ]

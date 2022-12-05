@@ -5,16 +5,14 @@
     "keypair":{
       "secret": "SATGLVMT62AODTFWG32Q5D5GX2QFXD3WW3XGLLRSVUJRNRNFEMOXEK5S",
       "public": "GCPNJLYWFGJWTHDSCYRUDEUH25Z47QMYXVMZXFFCW5DHOWJEPWDVDHWQ"
-    },
-    "funded": true    
+    }   
   },
   {
     "id": "30-22220000-9",
-    "name": "Zona Sanitaria Octava - Mar del Plata",
+    "name": "Zona Sanitaria VIII - Mar del Plata",
     "keypair": {
       "secret": "SC5O7BEOIZDHJ7ZRGSXCIFDYVSHPALXUZ5VUFNVP6U4SUPFH2WCHZWXU",
       "public": "GA6W2RAWZSR5DLKXPYJRIEO4S57NLGWLGI4OFJBFCXNOOOKYPWXYTKTG"
-    },
-    "funded": true
+    }
   }
 ]
