@@ -2,10 +2,9 @@
   "openapi": "3.0.3",
   "info": {
     "title": "VAC - Vacunatorio Argentino Centralizado - SEMINARIO TUSI 2022",
-    "description": "Este documento tiene como propósito detallar el funcionamiento de la **API VAC** (*Vacunatorio Argentino Centralizado*) y está dirigido a los desarroladores que la implementen.\n\n\nEl sistema registrará la aplicación y distribución de dosis de vacunas a nivel Nacional/Provincial/Municipal. Altas y bajas de cantidad de dosis entregadas a distribuidores, vendedores y aplicadores. Registro de dosis aplicadas.\n\nUtiliza tecnologia Blockchain para manter un registro centralizado de las vacunas distribuidas y aplicadas, el cual podrán consultar todos los centros de salud y gubernamentales.",
+    "description": "Este documento tiene como propósito detallar el funcionamiento de la **API VAC** (*Vacunatorio Argentino Centralizado*) y está dirigido a los desarroladores que la implementen.\n\n\nEl sistema permitira registrar la aplicación y distribución de dosis de vacunas a nivel Nacional/Provincial/Municipal. Altas y bajas de cantidad de dosis entregadas a distribuidores, vendedores y aplicadores. Registro de dosis aplicadas.\n\nUtiliza tecnologia Blockchain para manter un registro centralizado de las vacunas distribuidas y aplicadas, el cual podrán consultar todos los centros de salud y gubernamentales.",
     "contact": {
       "name": "Gonzalo Cabrera",
-      "email": "txalomdq@gmail.com",
       "url": "https://github.com/txalo/TUSI_SEMINARIO_22"
     },
     "version": "1.0.1"
@@ -40,12 +39,9 @@
   "paths": {
     "/vaccines/list": {
       "get": {
-        "tags": [
-          "vaccines"
-        ],
+        "tags": ["vaccines"],
         "summary": "Listado de vacunas",
         "description": "Devuelve un listado con todas las vacunas de calendario",
-        "operationId": "getAllVaccindesData",
         "responses": {
           "200": {
             "description": "Ok",
@@ -65,12 +61,9 @@
     },
     "/issuer/doses/assign": {
       "post": {
-        "tags": [
-          "issuer"
-        ],
+        "tags": ["issuer"],
         "summary": "Asignar dosis a un distribuidor",
         "description": "Emite las dosis y luego las asigna al distribuidor que recibe en la request.",
-        "operationId": "assignDoses",
         "requestBody": {
           "description": "Asigna dosis a un distribuidor",
           "content": {
@@ -180,14 +173,11 @@
         }
       }
     },
-    "/distributor/{id}/doses/stock": {
+    "/distributors/{id}/doses/stock": {
       "get": {
-        "tags": [
-          "distributor"
-        ],
+        "tags": ["distributor"],
         "summary": "Devuelve stock de dosis del distribuidor",
         "description": "Devuelve un arreglo con objetos indicando codigo vacuna y cantidad",
-        "operationId": "listDoses",
         "parameters": [
           {
             "name": "id",
@@ -269,11 +259,9 @@
         }
       }
     },
-    "/distributor/list": {
+    "/distributors/list": {
       "get": {
-        "tags": [
-          "distributor"
-        ],
+        "tags": ["distributor"],
         "summary": "Lista de distribuidores.",
         "description": "Devuelve una lista de todos los distribuidores",
         "responses": {
@@ -305,12 +293,9 @@
     },
     "/applicators/doses/request": {
       "post": {
-        "tags": [
-          "applicator"
-        ],
+        "tags": ["applicator"],
         "summary": "Solicitud de dosis a distribuidor",
         "description": "Aplicador solicita dosis a un distribuidor.",
-        "operationId": "requestDoses",
         "requestBody": {
           "description": "Solicita dosis a un distribuidor",
           "content": {
@@ -425,12 +410,9 @@
     },
     "/applicators/doses/apply": {
       "post": {
-        "tags": [
-          "applicator"
-        ],
+        "tags": ["applicator"],
         "summary": "Aplicar dosis",
         "description": "Registra la aplicacion de una dosis a un receptor",
-        "operationId": "doseApply",
         "requestBody": {
           "description": "Datos de aplicador, receptor y dosis a registrar",
           "content": {
@@ -524,12 +506,9 @@
     },
     "/applicators/{id}/doses/stock": {
       "get": {
-        "tags": [
-          "applicator"
-        ],
+        "tags": ["applicator"],
         "summary": "Devuelve stock de dosis del aplicador",
         "description": "Devuelve un arreglo con objetos indicando codigo vacuna y cantidad que posee el distribuidor en stock",
-        "operationId": "listDosesApplicator",
         "parameters": [
           {
             "name": "id",
@@ -583,12 +562,9 @@
     },
     "/applicators/list/all": {
       "get": {
-        "tags": [
-          "applicator"
-        ],
+        "tags": ["applicator"],
         "summary": "Devuelve lista de aplicadores",
         "description": "Lista todos los aplicadores y su stock de dosis disponibles",
-        "operationId": "listApplicators",
         "responses": {
           "200": {
             "description": "respuesta exitosa",
@@ -617,12 +593,9 @@
     },
     "/receiver/{receiverID}/doses/list": {
       "get": {
-        "tags": [
-          "receiver"
-        ],
+        "tags": ["receiver"],
         "summary": "Devuelve lista de dosis recibidas",
         "description": "Lista de las dosis recibidas y fechas en las que fueron aplicadas",
-        "operationId": "receiverDoses",
         "parameters": [
           {
             "name": "receiverID",
